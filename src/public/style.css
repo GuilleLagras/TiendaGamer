@@ -5,7 +5,6 @@
     max-width: 100%;
 }
 
-
 h2{
     color: rgb(0, 0, 0);
     text-align: center;
@@ -25,7 +24,6 @@ h2{
     padding: 70px;
   }
 
-
   .cards {
     border: 1px solid #ccc;
     text-align: center;
@@ -41,7 +39,6 @@ h2{
     height: 200px;
     width: 200px;
   }
-
 
   .cardTitle {
     font-size: 30px;

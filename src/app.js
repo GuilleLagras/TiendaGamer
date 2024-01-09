@@ -1,28 +1,21 @@
 import express  from "express";
 import __dirname from './config/utils.js';
-
 import exphbs from 'express-handlebars';
 import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
 import Handlebars from 'handlebars';
-
 import flash from "express-flash";
-//import compression from "express-compression";
 import { Server } from "socket.io";
-
 import productsRouter from "./Routes/products.routes.js";
 import cartsRouter from "./Routes/cart.routes.js";
 import viewsRouter from "./Routes/views.routes.js";
 import messageRouter from "./Routes/message.routes.js";
 import sessionRouter from "./Routes/session.routes.js";
-
 import cookieParser from "cookie-parser";
 import session from 'express-session';
 import MongoStore from "connect-mongo";
 import './passport.js';
 import passport from "passport";
-// coneccion a db
 import "./dao/Mongo/configDB.js"
-//socket
 import { socketManager } from "./dao/socket.manager.js";
 import config from './config/config.js'
 import { errorMiddleware } from "./middlewares/error.middleware.js";
@@ -30,13 +23,11 @@ import { errorMiddleware } from "./middlewares/error.middleware.js";
 const app = express();
 const PORT = config.port
 
-//app.use(compression({ brotli: { enable: true, params: {  zlib: {   level: 6 }  }}}));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname+'/public'));
 app.use(cookieParser('SecretCookie'));
-//flash
 app.use(flash());
 
 

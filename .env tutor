@@ -1,0 +1,11 @@
+PORT=8080
+PERSISTENCE=Mongo
+MONGO_URI=mongodb+srv://ecommerce-Guillermo:coderBackend@ecommerce.mola37p.mongodb.net/Ecommerce?retryWrites=true&w=majority
+SECRET_KEY_JWT=secretJWT
+GITHUB_CLIENT_ID=Iv1.df3e32deef17cc2f
+GITHUB_CLIENT_SECRET=2b07a256b7e1c035b2d5b7212fe2bf5f7bdb5e74
+SECRET_SESSION=secretSession
+ADMIN_EMAIL=adminCoder@coder.com
+ADMIN_PASSWORD= adminCod3r123
+NODEMAILER_USER=guillermocarrasquedo@gmail.com
+NODEMAILER_PASS=ciil ybft vwfq cvdy

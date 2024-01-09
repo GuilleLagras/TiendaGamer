@@ -1,21 +1,19 @@
 import { ticketDao } from "../dao/Mongo/manager/Tickets.dao.js";
-
 import { v4 as uuidv4 } from 'uuid';
-
 import { cartsRepository } from "../repositories/cart.repository.js";
 import { usersRepository } from "../repositories/users.repository.js";
 import customError from '../errors/errors.generator.js'
-import {errorMessage , errorName} from '../errors/errors.enum.js'
+import { errorMessage, errorName } from '../errors/errors.enum.js';
+
 class CartsService {
   async getAllCarts() {
     try {
       const carts = await cartsRepository.findAll();
       return { message: "Carritos :", carts };
     } catch (error) {
-    throw customError.generateError(errorMessage.CARTS_NOT_FOUND, error.code, errorName.CARTS_NOT_FOUND);
+      throw customError.generateError(errorMessage.CARTS_NOT_FOUND, error.code, errorName.CARTS_NOT_FOUND);
     }
   }
-
 
   async getCartById(idCart) {
     try {
@@ -30,7 +28,6 @@ class CartsService {
     }
   }
 
-
   async createCart() {
     try {
       const createdCart = await cartsRepository.createCart();
@@ -39,7 +36,6 @@ class CartsService {
       throw customError.generateError(errorMessage.CART_NOT_CREATED, error.code, errorName.CART_NOT_CREATED);
     }
   }
-
 
   async addProductToCart(idCart, idProduct, quantity) {
     try {

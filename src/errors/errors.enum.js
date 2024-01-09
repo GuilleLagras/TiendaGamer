@@ -32,7 +32,6 @@ export const errorName = {
   GITHUB_CALLBACK_ERROR: 'GitHub Callback Error',
   GITHUB_AUTH_ERROR: 'GitHub Auth Error',
   GET_CURRENT_USER_ERROR: 'Get Current User Error',
-
 };
 
 export const errorMessage = {

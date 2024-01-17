@@ -3,7 +3,6 @@ import { usersRepository } from "../repositories/users.repository.js";
 import customError from '../errors/errors.generator.js'
 import { errorMessage, errorName } from "../errors/errors.enum.js";
 
-
 class UsersService {
   async findByEmail(email) {
     try {

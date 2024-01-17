@@ -18,7 +18,6 @@ passport.use('signup', new LocalStrategy({ passReqToCallback: true, usernameFiel
     if (!userReqDTO.Usuario || !password || !email) {
       return done(null, false);
     }
-
     try {
       const hashedPassword = await hashData(password);
       const newCart = await cartsRepository.createCart();

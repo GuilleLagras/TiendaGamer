@@ -9,6 +9,5 @@ export const transport = nodemailer.createTransport({
     auth:{
         user:NODEMAILER_USER,
         pass:NODEMAILER_PASS,
-
     }
 })

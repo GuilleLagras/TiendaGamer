@@ -1,0 +1,10 @@
+{
+  message: 'Este es un mensaje de nivel error',
+  level: 'error',
+  timestamp: '2024-01-15T01:44:15.629Z'
+}
+{
+  message: 'Este es un mensaje de nivel fatal',
+  level: 'fatal',
+  timestamp: '2024-01-15T01:44:15.631Z'
+}

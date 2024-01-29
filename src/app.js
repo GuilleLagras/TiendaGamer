@@ -1,4 +1,5 @@
 import express  from "express";
+import cors from 'cors'
 import __dirname from './config/utils.js';
 import exphbs from 'express-handlebars';
 import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
@@ -26,12 +27,13 @@ import loggerRouter from "./Routes/logger.routes.js";
 const app = express();
 const PORT = config.port
 
+//app.use(compression({ brotli: { enable: true, params: {  zlib: {   level: 6 }  }}}));
+app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname+'/public'));
 app.use(cookieParser('SecretCookie'));
 app.use(flash());
-
 
 //mongo 
 const URI = config.mongo_uri

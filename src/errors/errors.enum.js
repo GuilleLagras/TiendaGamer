@@ -32,6 +32,9 @@ export const errorName = {
   GITHUB_CALLBACK_ERROR: 'GitHub Callback Error',
   GITHUB_AUTH_ERROR: 'GitHub Auth Error',
   GET_CURRENT_USER_ERROR: 'Get Current User Error',
+  RESET_TOKEN_NOT_FOUND:'Reset token not found',
+  UPDATE_PREMIUM_USER_ERROR:'User not updated'
+
 };
 
 export const errorMessage = {
@@ -68,4 +71,6 @@ export const errorMessage = {
   GITHUB_CALLBACK_ERROR: 'Error en la autenticación de GitHub',
   GITHUB_AUTH_ERROR: 'Error en la autenticación de GitHub',
   GET_CURRENT_USER_ERROR: 'Error al obtener el usuario actual',
+  RESET_TOKEN_NOT_FOUND:'No se ha encontrado token para restaurar contraseña',
+  UPDATE_PREMIUM_USER_ERROR:'No se pudo actualizar rol'
 };

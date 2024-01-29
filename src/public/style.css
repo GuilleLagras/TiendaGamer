@@ -5,6 +5,7 @@
     max-width: 100%;
 }
 
+
 h2{
     color: rgb(0, 0, 0);
     text-align: center;
@@ -16,6 +17,9 @@ h2{
     width: 100px;
     border-radius: 50%;
 }
+.cardOwner{
+  display: none;
+}
 
   .container {
     display: flex;
@@ -23,6 +27,7 @@ h2{
     gap: 20px;
     padding: 70px;
   }
+
 
   .cards {
     border: 1px solid #ccc;
@@ -39,6 +44,7 @@ h2{
     height: 200px;
     width: 200px;
   }
+
 
   .cardTitle {
     font-size: 30px;

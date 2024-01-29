@@ -8,3 +8,8 @@
   level: 'fatal',
   timestamp: '2024-01-15T01:44:15.631Z'
 }
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-01-26T00:28:57.427Z'
+}

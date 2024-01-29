@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Websocket Products || Tienda Gamer</title>
+  <title>Websocket Products || E-commerce</title>
 </head>
 <body>
-<h2>Productos en tiempo real</h2>
+<h2>Live Updated Products</h2>
 
 <div class="container">
     {{#if productList.length}}
@@ -16,7 +16,7 @@
           <h3 class="cardTitle">{{this.title}}</h3>
           <h4 class="cardPrice">$ {{this.price}}</h4>
           <h4 class="cardStock">Stock: {{this.stock}}</h4>
-          <button onclick="deleteProduct('{{this._id}}')"> Eliminar ✖️</button>
+         <button onclick="deleteProduct('{{this._id}}')"> Eliminar ✖️</button>
         </div>
       {{/each}}
     {{else}}
@@ -32,6 +32,8 @@
   <!-- formulario para agregar productos -->
 
   <form id="formularioAgregarProducto">
+       <input type="hidden" id="userEmail" value="{{userEmail}}">
+       <input type="hidden" id="userRole" value="{{userRole}}">
     <input type="text" id="title" placeholder="Título" required>
     <input type="text" id="description" placeholder="Descripción" required>
     <input type="number" id="price" placeholder="Precio"  required>

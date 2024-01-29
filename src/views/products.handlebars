@@ -7,7 +7,7 @@
 </head>
 <body>
   <header class="productsHeader">
-    <h1 class="tituloItem">Tienda Gamer</h1>
+    <h1 class="tituloItem">E-commerce</h1>
     <div>
     <button class="btn btn-dark">
       <a href="/api/sessions/current"  class="signout">
@@ -15,15 +15,19 @@
 {{#ifEqual user.role 'Admin'}}
   {{user.Usuario}} (Administrador)
 {{else}}
-  {{user.Usuario}} (Usuario)
+  {{user.Usuario}} 
+  {{#ifEqual user.role 'Premium'}}(Premium){{else}}(Usuario){{/ifEqual}}
 {{/ifEqual}}
+
 </a>
 </button>
     <button class="btn btn-dark">
         <a href="/api/sessions/signout" class="signout">Sign Out
         </a>
       </button>
-  
+  <button class="btn btn-dark">
+  <a href="/api/users/premium/{{user._id }}" class="signout">Upgrade rol</a>
+</button>
       </div>
        </header> 
 <a href="/api/cart/{{user.cartId}}"id="carrito"><i class="fa-solid fa-cart-shopping fa-2xl" style="color: #000000;"  ></i><span class="badge">{{ cartLenght }}</span></a>
@@ -32,8 +36,8 @@
   <label for="category">Seleccionar categoría:</label>
   <select name="query" id="category">
     <option value="">Todas las categorías</option>
-    <option value="PS5">PS5</option>
-    <option value="PS4">PS4</option>
+    <option value="Electronica">Electronica</option>
+    <option value="Videojuegos">Videojuegos</option>
   </select>
 
   <label for="availability">  Filtrar por Disponibilidad:</label>

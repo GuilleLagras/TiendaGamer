@@ -1,7 +1,5 @@
- 
- // Cliente
- const socketClient = io();
- function deleteProduct(id) {
+const socketClient = io();
+function deleteProduct(id) {
   const productId = id;
   const userEmailInput = document.getElementById('userEmail');
   const userRoleInput = document.getElementById('userRole');
@@ -14,10 +12,9 @@
     console.error('User email and role are required.');
     return;
   }
- console.log('User email:', userEmail);
-  console.log('User role:', userRole);
 
- socketClient.emit('deleteProduct', { productId, userEmail, userRole });
+
+  socketClient.emit('deleteProduct', { productId, userEmail, userRole });
 }
 /*
 // Borrar producto
@@ -33,10 +30,10 @@
     alert('No tienes permisos para eliminar este producto.');
   } }
    */
-  document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
   // Campos del form
-const formularioAgregarProducto = document.getElementById('formularioAgregarProducto');
+  const formularioAgregarProducto = document.getElementById('formularioAgregarProducto');
   const titleInput = document.getElementById('title');
   const descriptionInput = document.getElementById('description');
   const priceInput = document.getElementById('price');
@@ -44,8 +41,8 @@ const formularioAgregarProducto = document.getElementById('formularioAgregarProd
   const codeInput = document.getElementById('code');
   const stockInput = document.getElementById('stock');
   const thumbnailsInput = document.getElementById('thumbnails');
-  const userRoleInput =  document.getElementById('userRole');
-  const userEmailInput =  document.getElementById('userEmail');
+  const userRoleInput = document.getElementById('userRole');
+  const userEmailInput = document.getElementById('userEmail');
 
   formularioAgregarProducto.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -57,10 +54,10 @@ const formularioAgregarProducto = document.getElementById('formularioAgregarProd
       category: categoryInput.value,
       code: codeInput.value,
       stock: parseInt(stockInput.value),
-      thumbnails: thumbnailsInput.value, 
+      thumbnails: thumbnailsInput.value,
       owner: userRoleInput.value,
-      ownerEmail:userEmailInput.value,
-      
+      ownerEmail: userEmailInput.value,
+
     };
 
     // Agregar producto
@@ -75,19 +72,19 @@ const formularioAgregarProducto = document.getElementById('formularioAgregarProd
     stockInput.value = '';
     thumbnailsInput.value = '';
   });
-   
-    socketClient.on('actualizarProductos', (productos) => {
+
+  socketClient.on('actualizarProductos', (productos) => {
     actualizarInterfaz(productos);
   });
 
   function actualizarInterfaz(productList) {
     const container = document.querySelector('.container');
     container.innerHTML = '';
-  
+
     productList.forEach((product) => {
       const card = document.createElement('div');
       card.classList.add('cards');
-  
+
       card.innerHTML = `
         <img src="${product.thumbnails}" alt="Imagen del producto" class="productImage">
         <h3 class="cardTitle">${product.title}</h3>
@@ -96,11 +93,11 @@ const formularioAgregarProducto = document.getElementById('formularioAgregarProd
         <p class="cardOwnerr">Correo electrónico: ${product.ownerEmail}</p>
         <button data-product-id="${product._id}" onclick="deleteProduct('${product._id}')">Eliminar✖️</button>
       `;
-  
+
       container.appendChild(card);
     });
   }
-  
+
 });
 
 

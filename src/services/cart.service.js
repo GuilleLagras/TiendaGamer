@@ -56,21 +56,25 @@ class CartsService {
       const updatedCart = await cartsRepository.deleteAllProducts(idCart);
       return { message: "Se ha vaciado el carrito", updatedCart };
     } catch (error) {
-      throw customError.generateError(errorMessage.REMOVE_ALL_FROM_CART, error.code, errorName.REMOVE_ALL_FROM_CART);
+      throw customError.generateError(errorMessage.REMOVE_ALL_FROM_CART, 500, errorName.REMOVE_ALL_FROM_CART);
     }
   }
 
-  async removeProductFromCart(idCart, idProduct) {
-    try {
+async removeProductFromCart(idCart, idProduct) {
+  try {
+      
       const updatedCart = await cartsRepository.removeProductFromCart(idCart, idProduct);
+      
       if (!updatedCart) {
         return { message: errorMessage.MESSAGE_REMOVE };
+
       }
-      return updatedCart;
-    } catch (error) {
-      throw customError.generateError(errorMessage.REMOVE_FROM_CART, error.code, errorName.REMOVE_FROM_CART);
-    }
+      return  { message: "Se ha eliminado el producto del carrito", updatedCart };
+  } catch (error) {
+      throw customError.generateError(errorMessage.REMOVE_FROM_CART, 500, errorName.REMOVE_FROM_CART);
   }
+}
+
 
   async updateCart(idCart, updatedProducts) {
     try {
@@ -92,7 +96,7 @@ class CartsService {
       }
       return updatedCart;
     } catch (error) {
-      throw customError.generateError(errorMessage.UPDATED_PRODUCTS, error.code, errorName.UPDATED_PRODUCTS);
+      throw customError.generateError(errorMessage.UPDATED_PRODUCTS, 400, errorName.UPDATED_PRODUCTS);
     }
   }
 

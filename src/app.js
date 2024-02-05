@@ -5,6 +5,7 @@ import exphbs from 'express-handlebars';
 import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
 import Handlebars from 'handlebars';
 import flash from "express-flash";
+//import compression from "express-compression";
 import { Server } from "socket.io";
 import productsRouter from "./Routes/products.routes.js";
 import cartsRouter from "./Routes/cart.routes.js";
@@ -22,12 +23,12 @@ import config from './config/config.js'
 import { errorMiddleware } from "./middlewares/error.middleware.js";
 import { logger } from "./config/logger.js";
 import loggerRouter from "./Routes/logger.routes.js";
-
+import { swaggerSetup } from "./config/swagger.js";
+import  swaggerUi  from "swagger-ui-express";
 
 const app = express();
 const PORT = config.port
 
-//app.use(compression({ brotli: { enable: true, params: {  zlib: {   level: 6 }  }}}));
 app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -76,8 +77,12 @@ app.use('/', viewsRouter);
 app.use('/api/sessions', sessionRouter)
 app.use('/chat', messageRouter);
 app.use('/products', productsRouter);
-app.use('/loggerTest',loggerRouter)
+
+//swagger
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSetup) )
 //errores
+
+app.use('/loggerTest',loggerRouter)
 app.use(errorMiddleware)
 // Iniciar el servidor
 const httpServer = app.listen(PORT, () => {

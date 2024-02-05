@@ -1,7 +1,6 @@
 import { productRepository } from "../repositories/products.repository.js";
-import { errorMessage, errorName } from "../errors/errors.enum.js";
-import customError from '../errors/errors.generator.js';
-
+import { errorMessage ,errorName } from "../errors/errors.enum.js";
+import customError from '../errors/errors.generator.js'
 class ProductService {
   async getAllProducts(query) {
     try {
@@ -29,22 +28,17 @@ class ProductService {
 
   async updateProductById(id, data) {
     try {
-      const result = await productRepository.updatedOne(id, data);
+      return await productRepository.updatedOne(id, data);
 
-      if (result.matchedCount > 0) {
-        return true;
-      } else {
-        throw customError.generateError(errorMessage.UPDATED_PRODUCTS, null, errorName.UPDATED_PRODUCTS);
-      }
     } catch (error) {
-      throw customError.generateError(errorMessage.UPDATED_PRODUCTS, error.code, errorName.UPDATED_PRODUCTS);
+      throw customError.generateError(errorMessage.UPDATED_PRODUCTS, 400, errorName.UPDATED_PRODUCTS);
     }
   }
 
   async deleteProductById(id) {
     try {
       await productRepository.deleteOne(id);
-      return true;
+      return true; 
     } catch (error) {
       throw customError.generateError(errorMessage.PRODUCT_NOT_FOUND, error.code, errorName.PRODUCT_NOT_FOUND);
     }

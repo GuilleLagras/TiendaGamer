@@ -1,0 +1,313 @@
+paths:
+  /api/carts:
+    get:
+      summary: Get All Carts
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: All Carts 
+        '500':
+          description: Server Error
+        '404':
+          description: Carts not found
+    post:
+      summary: Create Carts
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: Cart Created 
+        '400':
+          description: Cart not created
+        '500':
+          description: Server Error
+
+  /api/carts/{idCart}:
+    get:
+      summary: Get Cart By Id 
+      tags:
+        - Carts
+      parameters:
+        - name: idCart
+          in: path 
+          description: ID of the cart 
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cart found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Carts"
+              example:
+                cart:
+                  _id: "6a5d31gagadsghs5313sfhfsd"
+                  products:
+                    - product:
+                        _id: "6sd5gs1zfh35sdfhjd52"
+                        title: "The Last of US 2"
+                        description: "PS5"
+                        price: 35000
+                        category: "Videojuegos"
+                        code: "TLOU"
+                        stock: 6
+                        status: true
+                        thumbnails: ["http:imagen.com/THELAST.jpg"]
+                        owner: "Premium"
+                        ownerEmail: "guillermocarrasquedo@gmail.com"
+                        __v: 0
+                      quantity: 1
+                  total: 54000
+                  cartLenght: 1
+        '500':
+          description: Server Error
+        '404':
+          description: Id Cart not found
+    delete:
+      summary: Remove All Products from Cart
+      tags:
+        - Carts
+      parameters:
+        - name: idCart
+          in: path
+          description: ID of the cart
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: All products removed from cart successfully
+        '404':
+          description: Cart not found
+        '500':
+          description: Server Error
+    put:
+      summary: Update Cart
+      tags:
+        - Carts
+      parameters:
+        - name: idCart
+          in: path
+          description: ID of the cart
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Updated list of products in the cart
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product:
+                  type: string
+                  description: The ID of the product in the cart
+                quantity:
+                  type: number
+                  description: The quantity of the product in the cart
+              required:
+                - product
+                - quantity
+            example:
+              {
+              "products": [
+                {
+                  "product": "35a1fa35f1a<zvf35135afas",
+                  "quantity": 8
+                },
+                {
+                  "product": "6a51fa65g1agdsafz2g1sf5h1sfx3",
+                  "quantity": 6
+                }
+               ]
+              }
+      responses:
+        '200':
+          description: Cart updated successfully
+        '404':
+          description: Cart not found
+        '400':
+          description: Some data is missing or invalid
+
+  /api/carts/{idCart}/products/{idProduct}:
+    post:
+      summary: Add Product to Cart
+      tags:
+        - Carts
+      parameters:
+        - name: idCart
+          in: path
+          description: ID of the cart
+          required: true
+          schema:
+            type: string
+        - name: idProduct
+          in: path
+          description: ID of the product
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Quantity of the product to be added
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: number
+        examples:
+          example-1:
+            value:
+              quantity: 2
+      security:
+        - JWT: []
+      responses:
+        '200':
+          description: Product added to cart successfully
+        '500':
+          description: Server Error
+        '400':
+          description: Some data is missing or invalid
+    delete:
+      summary: Remove Product from Cart
+      tags:
+        - Carts
+      parameters:
+        - name: idCart
+          in: path
+          description: ID of the cart
+          required: true
+          schema:
+            type: string
+        - name: idProduct
+          in: path
+          description: ID of the product
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product removed from cart successfully
+        '404':
+          description: Cart or product not found
+        '500':
+          description: Server Error
+    put:
+      summary: Update Product Quantity
+      tags:
+        - Carts
+      parameters:
+        - name: idCart
+          in: path
+          description: ID of the cart
+          required: true
+          schema:
+            type: string
+            properties:
+                quantity:
+                  type: number
+        - name: idProduct
+          in: path
+          description: ID of the product
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Updated quantity of the product in the cart
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: number
+        examples:
+          example-1:
+            value:
+              quantity: 3
+      responses:
+        '200':
+          description: Product quantity updated successfully
+        '404':
+          description: Cart or product not found
+        '500':
+          description: Server Error
+
+components:
+  schemas:
+    Carts:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Carritos :"
+        carts:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+              products:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    product:
+                      type: object
+                      properties:
+                        _id: 
+                          type: string
+                        title: 
+                          type: string
+                        description: 
+                          type: string
+                        price: 
+                          type: number
+                        category: 
+                          type: string
+                        code: 
+                          type: string
+                        stock: 
+                          type: integer
+                        status: 
+                          type: boolean
+                        thumbnails:
+                          type: array
+                          items: 
+                            type: string
+                        owner: 
+                          type: string
+                        ownerEmail: 
+                          type: string
+                        __v: 
+                          type: integer
+                      example:
+                        _id: "3zsgs6dg58s1dg3sd5g1s3"
+                        title: "Need For Speed"
+                        description: "Carreras"
+                        price: 25000
+                        category: "PS4"
+                        code: "NFS"
+                        stock: 4
+                        status: true
+                        thumbnails:
+                          - "data:image/NFS"
+                        owner: "Admin"
+                        ownerEmail: "adminCoder@coder.com"
+                        __v: 0
+                    quantity:
+                      type: integer
+                      example: 1
+                  __v:
+                    type: integer
+            __v:
+              type: integer
+

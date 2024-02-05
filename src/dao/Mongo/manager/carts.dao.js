@@ -20,41 +20,48 @@ export default class CartsManager extends BasicManager {
     const total = cart.products.reduce((acc, item) => {
       return acc + item.product.price * item.quantity;
     }, 0);
-    return { cart, total ,cartLenght};
+    return { cart, total, cartLenght };
   }
 
   async addProductToCart(idCart, idProduct, quantity) {
     const cart = await CartModel.findById(idCart);
     const productIndex = cart.products.findIndex(
-        (p) => p.product.toString() === idProduct
+      (p) => p.product.toString() === idProduct
     );
 
     if (productIndex === -1) {
-        cart.products.push({ product: idProduct, quantity: quantity });
+      cart.products.push({ product: idProduct, quantity: quantity });
     } else {
-        cart.products[productIndex].quantity += quantity;
+      cart.products[productIndex].quantity += quantity;
     }
 
     return cart.save();
-}
+  }
 
 
   async removeProductFromCart(idCart, idProduct) {
-    const cart = await this.findById(idCart);
-    if (!cart) {
-      return null;
-    }
-    const productIndex = cart.products.findIndex(
-      (p) => p.product.toString() === idProduct
-    );
-    if (productIndex === -1) {
-      return null;
-    } else {
-      cart.products.splice(productIndex, 1);
-      await cart.save();
-      return cart;
+    try {
+      const cart = await this.findById(idCart);
+      if (!cart) {
+        return null;
+      }
+
+      const productIndex = cart.products.findIndex(
+        (p) => p.product._id.toString() === idProduct
+      );
+      if (productIndex === -1) {
+        return null;
+      } else {
+        cart.products.splice(productIndex, 1);
+        await cart.save();
+
+        return cart;
+      }
+    } catch (error) {
+      throw error;
     }
   }
+
 
   async updateCart(cartId, updatedProducts) {
     try {
@@ -62,7 +69,8 @@ export default class CartsManager extends BasicManager {
       if (!cart) {
         return null;
       }
-      cart.products = updatedProducts;
+      cart.products = updatedProducts.products;
+
       const updatedCart = await cart.save();
       return updatedCart;
     } catch (error) {
@@ -70,25 +78,34 @@ export default class CartsManager extends BasicManager {
     }
   }
 
+
+
   async updateProductQuantity(cartId, productId, quantity) {
     try {
       const cart = await this.findById(cartId);
       if (!cart) {
         return null;
       }
+
       const productIndex = cart.products.findIndex(
-        (p) => p.product.toString() === productId
+        (p) => p.product._id.toString() === productId
       );
+
       if (productIndex === -1) {
         return null;
       }
+
       cart.products[productIndex].quantity = quantity;
       const updatedCart = await cart.save();
+
       return updatedCart;
     } catch (error) {
       throw error;
     }
   }
+
+
+
 
   async deleteAllProducts(cartId) {
     try {

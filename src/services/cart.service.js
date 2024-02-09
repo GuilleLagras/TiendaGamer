@@ -21,7 +21,7 @@ class CartsService {
     try {
       const cart = await cartsRepository.findCartById(idCart);
       if (!cart) {
-        return { message: errorMessage.CART_NOT_FOUND };
+        return { message: errorMessage.CART_NOT_FOUND ,cart: null };
       }
       return { cart };
     } catch (error) {

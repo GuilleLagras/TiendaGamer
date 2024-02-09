@@ -44,21 +44,17 @@ class UsersController {
     })(req, res, next);
   }
 
-
-
   async signout(req, res) {
     res.clearCookie('token');
     res.redirect('/login');
   }
 
-
   async restore(req, res) {
     const { email } = req.body;
     try {
       const user = await usersService.findByEmail(email);
-
       if (!user) {
-        return handleErrors(res, customError.generateError(errorMessage.EMAIL_NOT_FOUND, 404, errorName.EMAIL_NOT_FOUND));
+        return res.status(404).json({ message: 'Correo electrónico no encontrado en la base de datos' });
       }
 
       const resetToken = generateResetToken(email);
@@ -69,13 +65,11 @@ class UsersController {
 
       await user.save();
       sendPasswordResetEmail(email, resetToken);
-
       res.status(200).json({ message: 'Correo electrónico enviado para restablecer la contraseña' });
     } catch (error) {
       handleErrors(res, customError.generateError(errorMessage.RESTORE_ERROR, 500, errorName.RESTORE_ERROR));
     }
   }
-
   async restorePassword(req, res) {
     const { newPassword } = req.body;
     const token = req.params.token;
@@ -87,8 +81,9 @@ class UsersController {
       }
 
       const isSamePassword = await compareData(newPassword, user.password);
+
       if (isSamePassword) {
-        return res.status(400).json({ error: 'No puedes restablecer la contraseña con la misma contraseña actual.' });
+        return res.status(400).json({ message: 'No puedes restablecer la nueva contraseña con tu contraseña actual.' });
       }
 
       const hashedPassword = await hashData(newPassword);
@@ -101,8 +96,6 @@ class UsersController {
       return res.status(500).json({ error: 'Error durante el restablecimiento de la contraseña.' });
     }
   }
-
-
   async githubCallback(req, res) {
     try {
       const { Usuario, email, role, cartId, _id } = req.user;
@@ -149,7 +142,6 @@ class UsersController {
       return handleErrors(res, customError.generateError(errorMessage.UPDATE_PREMIUM_USER_ERROR, 500, errorName.UPDATE_PREMIUM_USER_ERROR));
     }
   }
-
 }
 
 export const usersController = new UsersController();

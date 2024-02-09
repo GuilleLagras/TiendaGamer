@@ -23,3 +23,53 @@
   level: 'fatal',
   timestamp: '2024-02-01T04:13:46.900Z'
 }
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-07T03:47:25.366Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-07T03:47:30.351Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-07T19:35:45.649Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-07T19:36:33.970Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-07T19:36:45.525Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-07T19:37:06.468Z'
+}
+{
+  message: 'Este es un mensaje de nivel error',
+  level: 'error',
+  timestamp: '2024-02-07T19:55:39.963Z'
+}
+{
+  message: 'Este es un mensaje de nivel fatal',
+  level: 'fatal',
+  timestamp: '2024-02-07T19:55:39.964Z'
+}
+{
+  message: 'Este es un mensaje de nivel error',
+  level: 'error',
+  timestamp: '2024-02-07T19:55:44.825Z'
+}
+{
+  message: 'Este es un mensaje de nivel fatal',
+  level: 'fatal',
+  timestamp: '2024-02-07T19:55:44.826Z'
+}

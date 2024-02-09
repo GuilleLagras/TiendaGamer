@@ -61,9 +61,8 @@ class ProductController {
       }
     } catch (error) {
       console.error("Error al actualizar el producto:", error);
-      handleErrors(res, customError.generateError(errorMessage.UPDATE_PRODUCT_ERROR,500, errorName.UPDATE_PRODUCT_ERROR));
-   }
-   
+      handleErrors(res, customError.generateError(errorMessage.UPDATE_PRODUCT_ERROR, 500, errorName.UPDATE_PRODUCT_ERROR));
+    }
   }
 
   async deleteProductById(req, res) {

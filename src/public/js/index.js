@@ -3,8 +3,6 @@ function deleteProduct(id) {
   const productId = id;
   const userEmailInput = document.getElementById('userEmail');
   const userRoleInput = document.getElementById('userRole');
-
-
   const userEmail = userEmailInput.value.trim();
   const userRole = userRoleInput.value.trim();
 
@@ -12,27 +10,11 @@ function deleteProduct(id) {
     console.error('User email and role are required.');
     return;
   }
-
-
   socketClient.emit('deleteProduct', { productId, userEmail, userRole });
 }
-/*
-// Borrar producto
-/*  function deleteProduct(id) {
-  const productId = id;
 
-   const userRole = document.getElementById('userRole').value;
-  const userEmail = document.getElementById('userEmail').value;
-
-  if ((userRole === 'Admin') || (userRole === 'Premium' && userEmail === product.ownerEmail)) {
-    socketClient.emit('deleteProduct', productId);
-  } else {
-    alert('No tienes permisos para eliminar este producto.');
-  } }
-   */
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Campos del form
   const formularioAgregarProducto = document.getElementById('formularioAgregarProducto');
   const titleInput = document.getElementById('title');
   const descriptionInput = document.getElementById('description');
@@ -57,13 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
       thumbnails: thumbnailsInput.value,
       owner: userRoleInput.value,
       ownerEmail: userEmailInput.value,
-
     };
-
-    // Agregar producto
     socketClient.emit('addProduct', product);
 
-    // Limpiar formulario
     titleInput.value = '';
     descriptionInput.value = '';
     priceInput.value = '';
@@ -72,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
     stockInput.value = '';
     thumbnailsInput.value = '';
   });
-
   socketClient.on('actualizarProductos', (productos) => {
     actualizarInterfaz(productos);
   });
@@ -93,12 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <p class="cardOwnerr">Correo electrónico: ${product.ownerEmail}</p>
         <button data-product-id="${product._id}" onclick="deleteProduct('${product._id}')">Eliminar✖️</button>
       `;
-
       container.appendChild(card);
     });
   }
-
 });
-
-
-

@@ -1,15 +1,16 @@
 import { UsersManager } from "../dao/factory.js";
 import { logger } from "../config/logger.js";
+
 class UsersRepository {
   constructor() {
     this.dao = new UsersManager();
   }
-  async createOne(user){
+  async createOne(user) {
     try {
       return await this.dao.createOne(user)
     } catch (error) {
       logger.error(`Error al crear user: ${error}`);
-      
+
     }
   }
   async findByEmail(email) {
@@ -24,22 +25,31 @@ class UsersRepository {
       return await this.dao.findByEmailAndPopulateOrders(email);
     } catch (error) {
       logger.error(`Error al encontrar email ${error}`);
-      
+
     }
   }
-  async findById(id){
+  async findById(id) {
     try {
       return await this.dao.findById(id)
     } catch (error) {
       logger.error(`Error encontrar id ${error}`);
-      
+
     }
   }
   async findByResetToken(token) {
     try {
-  return await this.dao.findByResetToken(token);
+      return await this.dao.findByResetToken(token);
     } catch (error) {
-logger.error(`Error encontrar al token ${error}`);
+      logger.error(`Error encontrar al token ${error}`);
+    }
+  }
+
+  async updateOne(id, obj) {
+    try {
+      return await this.dao.updateOne(id, obj);
+    } catch (error) {
+      console.error('error' + error)
+      logger.error(`Error al actualizar usuario ${error}`);
     }
   }
 }

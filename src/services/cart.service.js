@@ -35,17 +35,6 @@ class CartsService {
   async createCart() {
     try {
       const createdCart = await cartsRepository.createCart();
-      console.log("Created cart:", createdCart);
-      return { message: "Carrito creado correctamente", Cart: createdCart };
-    } catch (error) {
-      console.error("Error creating cart:", error);
-      throw customError.generateError(errorMessage.CART_NOT_CREATED, error.code, errorName.CART_NOT_CREATED);
-    }
-  }
-
-  async createCart() {
-    try {
-      const createdCart = await cartsRepository.createCart();
       return { message: "Carrito creado correctamente", Cart: createdCart };
     } catch (error) {
       throw customError.generateError(errorMessage.CART_NOT_CREATED, error.code, errorName.CART_NOT_CREATED);

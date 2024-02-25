@@ -73,3 +73,347 @@
   level: 'fatal',
   timestamp: '2024-02-07T19:55:44.826Z'
 }
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-22T11:02:30.521Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-22T11:06:15.063Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-22T11:10:19.956Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-22T11:18:22.669Z'
+}
+{
+  reason: TopologyDescription {
+    type: 'ReplicaSetNoPrimary',
+    servers: Map(3) {
+      'ac-slwwczm-shard-00-00.mola37p.mongodb.net:27017' => ServerDescription {
+        address: 'ac-slwwczm-shard-00-00.mola37p.mongodb.net:27017',
+        type: 'Unknown',
+        hosts: [],
+        passives: [],
+        arbiters: [],
+        tags: {},
+        minWireVersion: 0,
+        maxWireVersion: 0,
+        roundTripTime: -1,
+        lastUpdateTime: 559209675,
+        lastWriteDate: 0,
+        error: MongoNetworkError: connect ETIMEDOUT 10.0.0.1:27017
+            at connectionFailureError (C:\Users\guill\OneDrive\Escritorio\Tienda Gamer\node_modules\mongodb\lib\cmap\connect.js:379:20)
+            at TLSSocket.<anonymous> (C:\Users\guill\OneDrive\Escritorio\Tienda Gamer\node_modules\mongodb\lib\cmap\connect.js:285:22)
+            at Object.onceWrapper (node:events:628:26)
+            at TLSSocket.emit (node:events:513:28)
+            at emitErrorNT (node:internal/streams/destroy:151:8)
+            at emitErrorCloseNT (node:internal/streams/destroy:116:3)
+            at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+          [Symbol(errorLabels)]: Set(1) { 'ResetPool' },
+          [cause]: Error: connect ETIMEDOUT 10.0.0.1:27017
+              at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1494:16) {
+            errno: -4039,
+            code: 'ETIMEDOUT',
+            syscall: 'connect',
+            address: '10.0.0.1',
+            port: 27017
+          }
+        },
+        topologyVersion: null,
+        setName: null,
+        setVersion: null,
+        electionId: null,
+        logicalSessionTimeoutMinutes: null,
+        primary: null,
+        me: null,
+        '$clusterTime': null
+      },
+      'ac-slwwczm-shard-00-01.mola37p.mongodb.net:27017' => ServerDescription {
+        address: 'ac-slwwczm-shard-00-01.mola37p.mongodb.net:27017',
+        type: 'Unknown',
+        hosts: [],
+        passives: [],
+        arbiters: [],
+        tags: {},
+        minWireVersion: 0,
+        maxWireVersion: 0,
+        roundTripTime: -1,
+        lastUpdateTime: 559209675,
+        lastWriteDate: 0,
+        error: MongoNetworkError: connect ETIMEDOUT 10.0.0.1:27017
+            at connectionFailureError (C:\Users\guill\OneDrive\Escritorio\Tienda Gamer\node_modules\mongodb\lib\cmap\connect.js:379:20)
+            at TLSSocket.<anonymous> (C:\Users\guill\OneDrive\Escritorio\Tienda Gamer\node_modules\mongodb\lib\cmap\connect.js:285:22)
+            at Object.onceWrapper (node:events:628:26)
+            at TLSSocket.emit (node:events:513:28)
+            at emitErrorNT (node:internal/streams/destroy:151:8)
+            at emitErrorCloseNT (node:internal/streams/destroy:116:3)
+            at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+          [Symbol(errorLabels)]: Set(1) { 'ResetPool' },
+          [cause]: Error: connect ETIMEDOUT 10.0.0.1:27017
+              at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1494:16) {
+            errno: -4039,
+            code: 'ETIMEDOUT',
+            syscall: 'connect',
+            address: '10.0.0.1',
+            port: 27017
+          }
+        },
+        topologyVersion: null,
+        setName: null,
+        setVersion: null,
+        electionId: null,
+        logicalSessionTimeoutMinutes: null,
+        primary: null,
+        me: null,
+        '$clusterTime': null
+      },
+      'ac-slwwczm-shard-00-02.mola37p.mongodb.net:27017' => ServerDescription {
+        address: 'ac-slwwczm-shard-00-02.mola37p.mongodb.net:27017',
+        type: 'Unknown',
+        hosts: [],
+        passives: [],
+        arbiters: [],
+        tags: {},
+        minWireVersion: 0,
+        maxWireVersion: 0,
+        roundTripTime: -1,
+        lastUpdateTime: 559209701,
+        lastWriteDate: 0,
+        error: MongoNetworkError: connect ETIMEDOUT 10.0.0.1:27017
+            at connectionFailureError (C:\Users\guill\OneDrive\Escritorio\Tienda Gamer\node_modules\mongodb\lib\cmap\connect.js:379:20)
+            at TLSSocket.<anonymous> (C:\Users\guill\OneDrive\Escritorio\Tienda Gamer\node_modules\mongodb\lib\cmap\connect.js:285:22)
+            at Object.onceWrapper (node:events:628:26)
+            at TLSSocket.emit (node:events:513:28)
+            at emitErrorNT (node:internal/streams/destroy:151:8)
+            at emitErrorCloseNT (node:internal/streams/destroy:116:3)
+            at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+          [Symbol(errorLabels)]: Set(1) { 'ResetPool' },
+          [cause]: Error: connect ETIMEDOUT 10.0.0.1:27017
+              at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1494:16) {
+            errno: -4039,
+            code: 'ETIMEDOUT',
+            syscall: 'connect',
+            address: '10.0.0.1',
+            port: 27017
+          }
+        },
+        topologyVersion: null,
+        setName: null,
+        setVersion: null,
+        electionId: null,
+        logicalSessionTimeoutMinutes: null,
+        primary: null,
+        me: null,
+        '$clusterTime': null
+      }
+    },
+    stale: false,
+    compatible: true,
+    heartbeatFrequencyMS: 10000,
+    localThresholdMS: 15,
+    setName: 'atlas-ritpa9-shard-0',
+    maxElectionId: new ObjectId('7fffffff00000000000000a3'),
+    maxSetVersion: 5,
+    commonWireVersion: 0,
+    logicalSessionTimeoutMinutes: null
+  },
+  code: undefined,
+  level: 'error',
+  timestamp: '2024-02-22T11:18:52.685Z',
+  [Symbol(errorLabels)]: Set(0) {}
+}
+{
+  reason: TopologyDescription {
+    type: 'ReplicaSetNoPrimary',
+    servers: Map(3) {
+      'ac-slwwczm-shard-00-00.mola37p.mongodb.net:27017' => ServerDescription {
+        address: 'ac-slwwczm-shard-00-00.mola37p.mongodb.net:27017',
+        type: 'Unknown',
+        hosts: [],
+        passives: [],
+        arbiters: [],
+        tags: {},
+        minWireVersion: 0,
+        maxWireVersion: 0,
+        roundTripTime: -1,
+        lastUpdateTime: 559209675,
+        lastWriteDate: 0,
+        error: MongoNetworkError: connect ETIMEDOUT 10.0.0.1:27017
+            at connectionFailureError (C:\Users\guill\OneDrive\Escritorio\Tienda Gamer\node_modules\mongodb\lib\cmap\connect.js:379:20)
+            at TLSSocket.<anonymous> (C:\Users\guill\OneDrive\Escritorio\Tienda Gamer\node_modules\mongodb\lib\cmap\connect.js:285:22)
+            at Object.onceWrapper (node:events:628:26)
+            at TLSSocket.emit (node:events:513:28)
+            at emitErrorNT (node:internal/streams/destroy:151:8)
+            at emitErrorCloseNT (node:internal/streams/destroy:116:3)
+            at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+          [Symbol(errorLabels)]: Set(1) { 'ResetPool' },
+          [cause]: Error: connect ETIMEDOUT 10.0.0.1:27017
+              at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1494:16) {
+            errno: -4039,
+            code: 'ETIMEDOUT',
+            syscall: 'connect',
+            address: '10.0.0.1',
+            port: 27017
+          }
+        },
+        topologyVersion: null,
+        setName: null,
+        setVersion: null,
+        electionId: null,
+        logicalSessionTimeoutMinutes: null,
+        primary: null,
+        me: null,
+        '$clusterTime': null
+      },
+      'ac-slwwczm-shard-00-01.mola37p.mongodb.net:27017' => ServerDescription {
+        address: 'ac-slwwczm-shard-00-01.mola37p.mongodb.net:27017',
+        type: 'Unknown',
+        hosts: [],
+        passives: [],
+        arbiters: [],
+        tags: {},
+        minWireVersion: 0,
+        maxWireVersion: 0,
+        roundTripTime: -1,
+        lastUpdateTime: 559209675,
+        lastWriteDate: 0,
+        error: MongoNetworkError: connect ETIMEDOUT 10.0.0.1:27017
+            at connectionFailureError (C:\Users\guill\OneDrive\Escritorio\Tienda Gamer\node_modules\mongodb\lib\cmap\connect.js:379:20)
+            at TLSSocket.<anonymous> (C:\Users\guill\OneDrive\Escritorio\Tienda Gamer\node_modules\mongodb\lib\cmap\connect.js:285:22)
+            at Object.onceWrapper (node:events:628:26)
+            at TLSSocket.emit (node:events:513:28)
+            at emitErrorNT (node:internal/streams/destroy:151:8)
+            at emitErrorCloseNT (node:internal/streams/destroy:116:3)
+            at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+          [Symbol(errorLabels)]: Set(1) { 'ResetPool' },
+          [cause]: Error: connect ETIMEDOUT 10.0.0.1:27017
+              at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1494:16) {
+            errno: -4039,
+            code: 'ETIMEDOUT',
+            syscall: 'connect',
+            address: '10.0.0.1',
+            port: 27017
+          }
+        },
+        topologyVersion: null,
+        setName: null,
+        setVersion: null,
+        electionId: null,
+        logicalSessionTimeoutMinutes: null,
+        primary: null,
+        me: null,
+        '$clusterTime': null
+      },
+      'ac-slwwczm-shard-00-02.mola37p.mongodb.net:27017' => ServerDescription {
+        address: 'ac-slwwczm-shard-00-02.mola37p.mongodb.net:27017',
+        type: 'Unknown',
+        hosts: [],
+        passives: [],
+        arbiters: [],
+        tags: {},
+        minWireVersion: 0,
+        maxWireVersion: 0,
+        roundTripTime: -1,
+        lastUpdateTime: 559209701,
+        lastWriteDate: 0,
+        error: MongoNetworkError: connect ETIMEDOUT 10.0.0.1:27017
+            at connectionFailureError (C:\Users\guill\OneDrive\Escritorio\Tienda Gamer\node_modules\mongodb\lib\cmap\connect.js:379:20)
+            at TLSSocket.<anonymous> (C:\Users\guill\OneDrive\Escritorio\Tienda Gamer\node_modules\mongodb\lib\cmap\connect.js:285:22)
+            at Object.onceWrapper (node:events:628:26)
+            at TLSSocket.emit (node:events:513:28)
+            at emitErrorNT (node:internal/streams/destroy:151:8)
+            at emitErrorCloseNT (node:internal/streams/destroy:116:3)
+            at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+          [Symbol(errorLabels)]: Set(1) { 'ResetPool' },
+          [cause]: Error: connect ETIMEDOUT 10.0.0.1:27017
+              at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1494:16) {
+            errno: -4039,
+            code: 'ETIMEDOUT',
+            syscall: 'connect',
+            address: '10.0.0.1',
+            port: 27017
+          }
+        },
+        topologyVersion: null,
+        setName: null,
+        setVersion: null,
+        electionId: null,
+        logicalSessionTimeoutMinutes: null,
+        primary: null,
+        me: null,
+        '$clusterTime': null
+      }
+    },
+    stale: false,
+    compatible: true,
+    heartbeatFrequencyMS: 10000,
+    localThresholdMS: 15,
+    setName: 'atlas-ritpa9-shard-0',
+    maxElectionId: new ObjectId('7fffffff00000000000000a3'),
+    maxSetVersion: 5,
+    commonWireVersion: 0,
+    logicalSessionTimeoutMinutes: null
+  },
+  code: undefined,
+  level: 'error',
+  timestamp: '2024-02-22T11:18:52.688Z',
+  [Symbol(errorLabels)]: Set(0) {}
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-23T00:22:16.058Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-23T00:26:07.767Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-23T00:35:08.235Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-23T00:47:37.113Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-23T01:11:48.077Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-23T01:16:04.242Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-23T01:29:31.511Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-24T19:20:03.131Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-24T20:06:19.433Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-02-24T20:16:16.784Z'
+}

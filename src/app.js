@@ -5,7 +5,6 @@ import exphbs from 'express-handlebars';
 import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
 import Handlebars from 'handlebars';
 import flash from "express-flash";
-//import compression from "express-compression";
 import { Server } from "socket.io";
 import productsRouter from "./Routes/products.routes.js";
 import cartsRouter from "./Routes/cart.routes.js";
@@ -25,6 +24,7 @@ import { logger } from "./config/logger.js";
 import loggerRouter from "./Routes/logger.routes.js";
 import { swaggerSetup } from "./config/swagger.js";
 import  swaggerUi  from "swagger-ui-express";
+import usersRouter from "./Routes/users.routes.js";
 
 const app = express();
 const PORT = config.port
@@ -36,7 +36,7 @@ app.use(express.static(__dirname+'/public'));
 app.use(cookieParser('SecretCookie'));
 app.use(flash());
 
-//mongo 
+
 const URI = config.mongo_uri
 app.use(
   session({
@@ -48,17 +48,12 @@ app.use(
   })
 );
 
-//passport 
 app.use(passport.initialize());
-//Sacar si uso JWT
-//app.use(passport.session())
 
-//handlebars
 const hbs = exphbs.create({
   extname: 'handlebars',
   defaultLayout: 'main',
   handlebars: allowInsecurePrototypeAccess(Handlebars),
-  //creacion de helper para igualar 
   helpers: {
     ifEqual: function(arg1, arg2, options) {
       return arg1 === arg2 ? options.fn(this) : options.inverse(this);
@@ -70,21 +65,16 @@ app.engine('handlebars', hbs.engine);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
 
-//routes de products , carts , mensaje
-
 app.use('/api/carts', cartsRouter);
 app.use('/', viewsRouter);
 app.use('/api/sessions', sessionRouter)
+app.use('/api/users', usersRouter)
 app.use('/chat', messageRouter);
 app.use('/products', productsRouter);
-
-//swagger
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSetup) )
-//errores
-
 app.use('/loggerTest',loggerRouter)
 app.use(errorMiddleware)
-// Iniciar el servidor
+
 const httpServer = app.listen(PORT, () => {
   logger.info(`Escuchando en el puerto ${PORT}`);
 }); 

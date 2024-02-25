@@ -11,7 +11,6 @@ export default class ProductManager extends BasicManager {
         try {
 
             const { limit = 10, page = 1, sort = '', query = '', availability = '' } = obj;
-
             const filter = {};
         
             if (query) {
@@ -68,12 +67,3 @@ export default class ProductManager extends BasicManager {
     }
     
 }
-
-
-
-
-   /* async findAll(){
-    const result = await productsModel.find().lean();
-    return result
-    }*/
-    //Aca no usar el find de basic

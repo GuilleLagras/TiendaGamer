@@ -1,7 +1,6 @@
 import { Router } from "express";
 import __dirname from '../config/utils.js';
 import { logger } from "../config/logger.js";
-//auth
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 import { jwtValidator } from "../middlewares/jwt.middleware.js";
 import flash from "express-flash";
@@ -10,33 +9,28 @@ import { messageRepository } from "../repositories/message.repository.js";
 import { cartsRepository } from "../repositories/cart.repository.js";
 import { productRepository } from "../repositories/products.repository.js";
 import { transport } from "../config/nodemailer.js";
-import { generateProduct} from "../faker.js";
-import config from "../config/config.js";
-import { UsersManager } from "../dao/factory.js";
+import { generateProduct } from "../faker.js";
 import { usersRepository } from "../repositories/users.repository.js";
-import { usersController } from "../controllers/users.controller.js";
 import { usersService } from "../services/users.service.js";
-const adminAuthMiddleware = ['Admin']
-const adminPremiumMiddleware=['Admin', 'Premium']
-const userAuthMiddleware = ['Admin', 'User','Premium']
+import { DocumentInfo, UserInfoDTO } from "../DTOs/userInfo.dto.js";
 
+
+const adminAuthMiddleware = ['Admin']
+const adminPremiumMiddleware = ['Admin', 'Premium']
+const userAuthMiddleware = ['Admin', 'User', 'Premium']
 const viewsRouter = Router();
 
 viewsRouter.get('/', async (req, res) => {
   try {
     const limit = 12;
-
     const { result } = await productRepository.findAllCustom({
       limit: limit,
     });
 
     const productObject = result.map(doc => doc.toObject());
-    
-   
 
     res.render('home', {
       productList: productObject,
-
     });
 
   } catch (error) {
@@ -44,7 +38,6 @@ viewsRouter.get('/', async (req, res) => {
     res.status(500).json({ error: 'Error al cargar la vista.' });
   }
 });
-
 
 viewsRouter.get('/realtimeproducts', jwtValidator, authMiddleware(adminPremiumMiddleware), async (req, res) => {
   try {
@@ -54,8 +47,6 @@ viewsRouter.get('/realtimeproducts', jwtValidator, authMiddleware(adminPremiumMi
     const { result } = await productRepository.findAllCustom({
       limit: limit,
     });
-
-    
 
     const productObject = result.map(doc => {
       const productData = doc.toObject();
@@ -67,7 +58,6 @@ viewsRouter.get('/realtimeproducts', jwtValidator, authMiddleware(adminPremiumMi
       }
 
       productData.ownerEmail = user.email;
-
       return productData;
     });
 
@@ -80,11 +70,6 @@ viewsRouter.get('/realtimeproducts', jwtValidator, authMiddleware(adminPremiumMi
     res.status(500).json({ error: 'Error al cargar la vista.' });
   }
 });
-
-
-
-
-
 
 viewsRouter.get('/api/users/premium/:uid', jwtValidator, authMiddleware(userAuthMiddleware), async (req, res) => {
   try {
@@ -101,94 +86,100 @@ viewsRouter.get('/api/users/premium/:uid', jwtValidator, authMiddleware(userAuth
   }
 });
 
+viewsRouter.get('/usersInfo/:uid', jwtValidator, authMiddleware(userAuthMiddleware), async (req, res) => {
+  const uid = req.params.uid;
+  const user = await usersRepository.findById(uid);
+  const dniDocument = user.documents.find(doc => doc.name === 'dni');
+  const addressDocument = user.documents.find(doc => doc.name === 'address');
+  const bankDocument = user.documents.find(doc => doc.name === 'bank');
+  const dni = dniDocument ? new DocumentInfo('dni', dniDocument.reference, dniDocument._id) : null;
+  const address = addressDocument ? new DocumentInfo('address', addressDocument.reference, addressDocument._id) : null;
+  const bank = bankDocument ? new DocumentInfo('bank', bankDocument.reference, bankDocument._id) : null;
+  const userInfoDTO = new UserInfoDTO(dni, address, bank);
+  const isUrl = user.avatar.startsWith("http");
 
-
-viewsRouter.get('/chat',jwtValidator,authMiddleware(userAuthMiddleware), async (req, res) => {
-  try {
-    const {email:userEmail}= req.user
-    const messages = await messageRepository.getAllMessages();
-    res.render('chat', { messages , userEmail });
-  } catch (error) {
-    console,log(error)
-    res.redirect('/login')}
+  res.render('documents', { user, isUrl, userInfoDTO });
 });
 
-viewsRouter.get('/api/products',jwtValidator,authMiddleware(userAuthMiddleware), async (req, res) => {
+viewsRouter.get('/chat', jwtValidator, authMiddleware(userAuthMiddleware), async (req, res) => {
+  try {
+    const { email: userEmail } = req.user
+    const messages = await messageRepository.getAllMessages();
+    res.render('chat', { messages, userEmail });
+  } catch (error) {
+    console, log(error)
+    res.redirect('/login')
+  }
+});
+
+viewsRouter.get('/api/products', jwtValidator, authMiddleware(userAuthMiddleware), async (req, res) => {
   try {
     const { info, result } = await productRepository.findAllCustom(req.query);
 
-  const productObject = result.map(doc => doc.toObject());
-  const { cartId } = req.user;
-  const { cartLenght } = await cartsRepository.findCartById(cartId);
-  if (req.session.errorMessage) {
-    return res.redirect('/error');
-}
- res.render('products', {
+    const productObject = result.map(doc => doc.toObject());
+    const { cartId } = req.user;
+    const { cartLenght } = await cartsRepository.findCartById(cartId);
+    if (req.session.errorMessage) {
+      return res.redirect('/error');
+    }
+    res.render('products', {
       productList: productObject,
       user: req.user,
       cartLenght,
       pagination: {
         prevLink: info.prevLink,
         nextLink: info.nextLink,
-    },
+      },
     });
   } catch (error) {
     res.redirect('/login')
   }
 });
 
-
-viewsRouter.get('/api/product/:pid', jwtValidator,authMiddleware(userAuthMiddleware), async (req, res) => {
+viewsRouter.get('/api/product/:pid', jwtValidator, authMiddleware(userAuthMiddleware), async (req, res) => {
   try {
-      const pid = req.params.pid;
-      const { cartId } = req.user;
+    const pid = req.params.pid;
+    const { cartId } = req.user;
+    const product = await productRepository.findById(pid);
 
-      const product = await productRepository.findById(pid);
+    if (!product) {
+      return res.status(404).json({ error: 'Producto no encontrado.' });
+    }
 
-      if (!product) {
-          return res.status(404).json({ error: 'Producto no encontrado.' });
-      }
-
-      res.render('productView', { product, cartId });
+    res.render('productView', { product, cartId });
   } catch (error) {
     res.redirect('/login')
-      }
+  }
 });
-
 
 viewsRouter.get('/api/cart/:cid', async (req, res) => {
   try {
     const idCart = req.params.cid;
-    const {cart , total} = await cartsRepository.findCartById(idCart); 
-    res.render('cart', { cart ,total ,idCart});
-   } catch (error) {
-
+    const { cart, total } = await cartsRepository.findCartById(idCart);
+    res.render('cart', { cart, total, idCart });
+  } catch (error) {
     res.status(500).send('Error al renderizar la página de carrito');
   }
 });
 
-// viewsRouter
 viewsRouter.get('/signup', async (req, res) => {
-if (req.authenticated) {
-      return res.redirect('/api/products');
+  if (req.authenticated) {
+    return res.redirect('/api/products');
   }
   res.render('signup', { user: req.user });
 });
 
 viewsRouter.get('/login', async (req, res) => {
   if (req.authenticated) {
-      return res.redirect('/api/products');
+    return res.redirect('/api/products');
   }
 
- res.render('login', { user: req.user });
+  res.render('login', { user: req.user });
 });
-
-//purchase
 viewsRouter.get("/:idCart/purchase", jwtValidator, async (req, res) => {
   try {
     const { idCart } = req.params;
     const { email: userEmail } = req.user;
-
     const response = await cartsService.purchase(idCart, userEmail, req.user);
 
     if (response.success) {
@@ -223,20 +214,14 @@ viewsRouter.get("/:idCart/purchase", jwtValidator, async (req, res) => {
   }
 });
 
-
-
-//restaurar
-
 viewsRouter.get('/restore', async (req, res) => {
   res.render('restore');
 });
 
-
-
 viewsRouter.get('/restorePassword/:token', async (req, res) => {
   const { token } = req.params;
   try {
-const user = await usersService.findByResetToken(token.toString());
+    const user = await usersService.findByResetToken(token.toString());
     if (!user || !user.resetToken || user.resetToken.expiration < new Date()) {
       res.redirect('/restore');
     } else {
@@ -260,24 +245,25 @@ viewsRouter.get('/error', async (req, res) => {
 });
 
 
- /* json mocking
- viewsRouter.get('/mockingproducts', async (req, res) => {
-  const products = [];
-  for (let i = 0; i < 100; i++) {
-    products.push(generateProduct());
-  }
-  res.json(products)})*/
+/* json mocking
+viewsRouter.get('/mockingproducts', async (req, res) => {
+ const products = [];
+ for (let i = 0; i < 100; i++) {
+   products.push(generateProduct());
+ }
+ res.json(products)})*/
 
- // Renderizado  de productos mocking:
- viewsRouter.get('/mockingproducts', async (req, res) => {
+// Renderizado  de productos mocking:
+viewsRouter.get('/mockingproducts', async (req, res) => {
   const products = [];
   for (let i = 0; i < 100; i++) {
     products.push(generateProduct());
   }
   res.render('home', {
     productList: products,
-    
-  });}) 
 
- 
+  });
+})
+
+
 export default viewsRouter;

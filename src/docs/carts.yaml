@@ -44,20 +44,20 @@ paths:
                 $ref: "#/components/schemas/Carts"
               example:
                 cart:
-                  _id: "6a5d31gagadsghs5313sfhfsd"
+                  _id: "65b978b691e768c747da7ee6"
                   products:
                     - product:
-                        _id: "6sd5gs1zfh35sdfhjd52"
-                        title: "The Last of US 2"
-                        description: "PS5"
-                        price: 35000
+                        _id: "65b19ebc3250bf4167b53ab2"
+                        title: "Resident Evil 4"
+                        description: "ps5"
+                        price: 54000
                         category: "Videojuegos"
-                        code: "TLOU"
-                        stock: 6
+                        code: "57575"
+                        stock: 88
                         status: true
-                        thumbnails: ["http:imagen.com/THELAST.jpg"]
+                        thumbnails: ["http:imagen.com/image.jpg"]
                         owner: "Premium"
-                        ownerEmail: "guillermocarrasquedo@gmail.com"
+                        ownerEmail: "guille_iban92@hotmail.com"
                         __v: 0
                       quantity: 1
                   total: 54000
@@ -116,12 +116,12 @@ paths:
               {
               "products": [
                 {
-                  "product": "35a1fa35f1a<zvf35135afas",
-                  "quantity": 8
+                  "product": "65b19ebc3250bf4167b53ab2",
+                  "quantity": 5
                 },
                 {
-                  "product": "6a51fa65g1agdsafz2g1sf5h1sfx3",
-                  "quantity": 6
+                  "product": "65b19f183250bf4167b53ab6",
+                  "quantity": 2
                 }
                ]
               }
@@ -290,16 +290,16 @@ components:
                         __v: 
                           type: integer
                       example:
-                        _id: "3zsgs6dg58s1dg3sd5g1s3"
-                        title: "Need For Speed"
-                        description: "Carreras"
+                        _id: "65b1a0c13250bf4167b53ae4"
+                        title: "SpiderMan"
+                        description: "Marvel"
                         price: 25000
-                        category: "PS4"
-                        code: "NFS"
-                        stock: 4
+                        category: "PS5"
+                        code: "spd"
+                        stock: 10
                         status: true
                         thumbnails:
-                          - "data:image/NFS"
+                          - "data:image/jpeg;base64,/9jf//Z"
                         owner: "Admin"
                         ownerEmail: "adminCoder@coder.com"
                         __v: 0

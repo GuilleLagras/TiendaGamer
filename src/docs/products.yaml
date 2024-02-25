@@ -25,16 +25,16 @@ paths:
         examples:
           example-1:
             value:
-              title: "Spider man"
-              description: "Marvel"
-              price: 42000
-              category: "PS5"
-              code: "SPIDER"
-              stock: 7
+              title: "Product example"
+              description: "Description of the product"
+              price: 50000
+              category: "ps4"
+              code: "tlou"
+              stock: 10
               status: true
               thumbnails:
-                - "https://imagen.com/spider.jpg"
-                - "https://imagen.com/SPIDERMAN.jpg"
+                - "https://imagen.com/imagen.jpg"
+                - "https://imagen.com/imagen2.jpg"
               owner: "Admin"
               ownerEmail: "adminCoder@coder.com"
       responses:
@@ -64,12 +64,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/Product"
               example:
-                title: "Calipso"
-                description: "MOON"
-                price: 24000
-                category: "PS5"
-                code: "Calipso0"
-                stock: 15
+                title: "Product example"
+                description: "Description of the product"
+                price: 89000
+                category: "ps4"
+                code: "nfs"
+                stock: 6
                 status: true
                 thumbnails:
                   - "https://imagen.com/imagen.jpg"
@@ -181,14 +181,14 @@ components:
         - ownerEmail
       example:
 
-        title: "MK1"
-        description: "Mortal Kombat 1"
-        price: 79000
-        category: "PS5"
-        code: "MK1"
-        stock: 10
+        title: "Product example"
+        description: "Description of the product"
+        price: 45000
+        category: "ps4"
+        code: "gow"
+        stock: 8
         status: true
         thumbnails:
-          - "https://imagen.com/MK1.jpg"
+          - "https://imagen.com/imagen.jpg"
         owner: "Admin"
         ownerEmail: "adminCoder@coder.com"

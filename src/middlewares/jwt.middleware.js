@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
 
-
 const SECRET_JWT_KEY = config.secret_jwt;
 
 export const jwtValidator = (req, res, next) => {

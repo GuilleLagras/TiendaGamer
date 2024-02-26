@@ -3,6 +3,7 @@ import { usersRepository } from "../repositories/users.repository.js";
 import customError from '../errors/errors.generator.js'
 import { errorMessage, errorName } from "../errors/errors.enum.js";
 
+
 class UsersService {
   async findByEmail(email) {
     try {
@@ -25,7 +26,6 @@ class UsersService {
       throw customError.generateError(errorMessage.RESET_TOKEN_NOT_FOUND, error.code, errorName.RESET_TOKEN_NOT_FOUND);
     }
   }
-
   async updateUserAvatar(id, updatedUserData) {
     try {
       const updatedUser = await usersRepository.updateOne(id, updatedUserData);
@@ -44,17 +44,13 @@ class UsersService {
       if (dni && dni.length > 0) {
         documents.push({ name: "dni", reference: dni[0].filename });
       }
-
       if (address && address.length > 0) {
         documents.push({ name: "address", reference: address[0].filename });
       }
-
       if (bank && bank.length > 0) {
         documents.push({ name: "bank", reference: bank[0].filename });
       }
-
       const savedDocuments = await usersRepository.updateOne(id, { documents });
-
       return savedDocuments;
     } catch (error) {
       throw customError.generateError(errorMessage.DOCUMENTS_NOT_UPDATED, error.code, errorName.UPDATE_USER_ERROR);

@@ -47,9 +47,11 @@ class ProductController {
       handleErrors(res, customError.generateError(errorMessage.CREATE_PRODUCT_ERROR, 400, errorName.CREATE_PRODUCT_ERROR));
     }
   }
+
   async createProductMulter(req, res) {
     try {
       const thumbnails = req.file;
+
       const productData = {
         title: req.body.title,
         description: req.body.description,
@@ -78,11 +80,9 @@ class ProductController {
 
   async updateProductById(req, res) {
     const productId = req.params.pid;
-
     try {
       const updatedData = req.body;
       const isUpdated = await productService.updateProductById(productId, updatedData);
-
       if (isUpdated) {
         res.status(200).json({ message: 'Producto actualizado correctamente' });
       } else {
@@ -98,7 +98,6 @@ class ProductController {
     const productId = req.params.pid;
     try {
       const isDeleted = await productService.deleteProductById(productId);
-
       if (isDeleted) {
         res.json({ message: 'Producto eliminado correctamente' });
       } else {

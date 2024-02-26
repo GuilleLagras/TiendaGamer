@@ -1,6 +1,7 @@
 import { UsersManager } from "../dao/factory.js";
 import { logger } from "../config/logger.js";
 
+
 class UsersRepository {
   constructor() {
     this.dao = new UsersManager();

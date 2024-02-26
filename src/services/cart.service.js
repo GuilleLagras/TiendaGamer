@@ -1,36 +1,35 @@
 import { ticketDao } from "../dao/Mongo/manager/Tickets.dao.js";
 import { logger } from "../config/logger.js";
 import { v4 as uuidv4 } from 'uuid';
+
 import { cartsRepository } from "../repositories/cart.repository.js";
 import { usersRepository } from "../repositories/users.repository.js";
 import customError from '../errors/errors.generator.js'
-import { errorMessage, errorName } from '../errors/errors.enum.js';
-
+import {errorMessage , errorName} from '../errors/errors.enum.js'
 class CartsService {
   async getAllCarts() {
     try {
       const carts = await cartsRepository.findAll();
-      console.log("Carts found:", carts);
       return { message: "Carritos :", carts };
     } catch (error) {
-      console.error("Error fetching carts:", error);
-      throw customError.generateError(errorMessage.CARTS_NOT_FOUND, error.code, errorName.CARTS_NOT_FOUND);
+    throw customError.generateError(errorMessage.CARTS_NOT_FOUND, error.code, errorName.CARTS_NOT_FOUND);
     }
   }
+
 
   async getCartById(idCart) {
     try {
       const cart = await cartsRepository.findCartById(idCart);
-      console.log("Cart found by ID:", cart);
       if (!cart) {
-        return { message: errorMessage.CART_NOT_FOUND, cart: null };
+        return { message: errorMessage.CART_NOT_FOUND };
       }
       return { cart };
     } catch (error) {
-      console.error("Error fetching cart by ID:", error);
       throw customError.generateError(errorMessage.CART_NOT_FOUND, error.code, errorName.CART_NOT_FOUND);
+      ;
     }
   }
+
 
   async createCart() {
     try {
@@ -40,6 +39,7 @@ class CartsService {
       throw customError.generateError(errorMessage.CART_NOT_CREATED, error.code, errorName.CART_NOT_CREATED);
     }
   }
+
 
   async addProductToCart(idCart, idProduct, quantity) {
     try {
@@ -60,20 +60,21 @@ class CartsService {
     }
   }
 
-  async removeProductFromCart(idCart, idProduct) {
-    try {
-
+async removeProductFromCart(idCart, idProduct) {
+  try {
+      
       const updatedCart = await cartsRepository.removeProductFromCart(idCart, idProduct);
-
+      
       if (!updatedCart) {
         return { message: errorMessage.MESSAGE_REMOVE };
 
       }
-      return { message: "Se ha eliminado el producto del carrito", updatedCart };
-    } catch (error) {
+      return  { message: "Se ha eliminado el producto del carrito", updatedCart };
+  } catch (error) {
       throw customError.generateError(errorMessage.REMOVE_FROM_CART, 500, errorName.REMOVE_FROM_CART);
-    }
   }
+}
+
 
   async updateCart(idCart, updatedProducts) {
     try {

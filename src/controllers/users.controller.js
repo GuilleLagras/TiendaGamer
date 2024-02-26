@@ -27,10 +27,12 @@ class UsersController {
         if (err || !user) {
           throw new Error("Error de autenticación");
         }
+
         req.login(user, { session: false }, async (error) => {
           if (error) {
             throw new Error("Error de inicio de sesión");
           }
+
           const { Usuario, email, role, cartId, _id, last_connection, avatar } = user;
 
           user.last_connection = new Date();
@@ -64,11 +66,11 @@ class UsersController {
       res.status(500).send('Error al cerrar sesión');
     }
   }
-
   async restore(req, res) {
     const { email } = req.body;
     try {
       const user = await usersService.findByEmail(email);
+
       if (!user) {
         return res.status(404).json({ message: 'Correo electrónico no encontrado en la base de datos' });
       }
@@ -77,10 +79,8 @@ class UsersController {
         token: resetToken,
         expiration: new Date(Date.now() + 60 * 60 * 1000),
       };
-
       await user.save();
       sendPasswordResetEmail(email, resetToken);
-
       res.status(200).json({ message: 'Correo electrónico enviado para restablecer la contraseña' });
     } catch (error) {
       handleErrors(res, customError.generateError(errorMessage.RESTORE_ERROR, 500, errorName.RESTORE_ERROR));
@@ -143,29 +143,24 @@ class UsersController {
     try {
       const { uid } = req.params;
       const { newRole } = req.body;
-
       const user = await usersService.findById(uid);
-
       if (!user) {
         return handleErrors(res, customError.generateError(errorMessage.USER_NOT_FOUND, 404, errorName.USER_NOT_FOUND));
       }
-
       const docs = user.documents;
       const dni = docs.find((d) => d.name === "dni");
       const bank = docs.find((d) => d.name === "bank");
       const address = docs.find((d) => d.name === "address");
-
       if (!dni) {
         return res.status(400).json({ error: 'Falta el documento "dni".' });
       }
-
       if (!bank) {
         return res.status(400).json({ error: 'Falta el documento "bank".' });
       }
-
       if (!address) {
         return res.status(400).json({ error: 'Falta el documento "address".' });
       }
+
       user.role = newRole;
       await user.save();
       return res.json({ userId: uid, currentRole: user.role });
@@ -185,10 +180,11 @@ class UsersController {
       if (err) {
         return res.status(500).json({ error: err.message });
       }
-
       try {
         const { dni, address, bank } = req.files;
+
         const response = await usersService.saveUserDocs(id, { dni, address, bank });
+
         res.status(200).json({ message: 'Documentos actualizados con éxito', response });
       } catch (error) {
         if (!(error.code === 400 && error.message.includes('Missing documents'))) {
@@ -207,6 +203,7 @@ class UsersController {
       if (err) {
         return res.status(500).json({ error: err.message });
       }
+
       try {
         const updatedUserData = {
           avatar: req.file.filename,
@@ -214,6 +211,7 @@ class UsersController {
         const updatedUser = await usersService.updateUserAvatar(uid, updatedUserData);
         console.log(updatedUser);
         res.status(200).json({ message: 'Avatar actualizado con éxito', user: updatedUser });
+
       } catch (error) {
         console.error('error' + error);
         res.status(error.code || 500).json({ error: error.message });

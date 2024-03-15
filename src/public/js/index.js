@@ -1,4 +1,5 @@
 const socketClient = io();
+
 function deleteProduct(id) {
   const productId = id;
   const userEmailInput = document.getElementById('userEmail');
@@ -14,19 +15,19 @@ function deleteProduct(id) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
   const formularioAgregarProducto = document.getElementById('formularioAgregarProducto');
-  const titleInput = document.getElementById('title');
-  const descriptionInput = document.getElementById('description');
-  const priceInput = document.getElementById('price');
-  const categoryInput = document.getElementById('category');
-  const codeInput = document.getElementById('code');
-  const stockInput = document.getElementById('stock');
-  const thumbnailsInput = document.getElementById('thumbnails');
-  const userRoleInput = document.getElementById('userRole');
-  const userEmailInput = document.getElementById('userEmail');
+  const agregarProductoBtn = document.getElementById('agregarProductoBtn');
+  const titleInput = document.getElementById('titleAdd');
+  const descriptionInput = document.getElementById('descriptionAdd');
+  const priceInput = document.getElementById('priceAdd');
+  const categoryInput = document.getElementById('categoryAdd');
+  const codeInput = document.getElementById('codeAdd');
+  const stockInput = document.getElementById('stockAdd');
+  const thumbnailsInput = document.getElementById('thumbnailsAdd');
+  const userRoleInput = document.getElementById('userRoleAdd');
+  const userEmailInput = document.getElementById('userEmailAdd');
 
-  formularioAgregarProducto.addEventListener('submit', (e) => {
+  agregarProductoBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
     const product = {
@@ -40,8 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
       owner: userRoleInput.value,
       ownerEmail: userEmailInput.value,
     };
+
+    // Agregar producto
+
     socketClient.emit('addProduct', product);
 
+    // Limpiar formulario
     titleInput.value = '';
     descriptionInput.value = '';
     priceInput.value = '';
@@ -50,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     stockInput.value = '';
     thumbnailsInput.value = '';
   });
+
   socketClient.on('actualizarProductos', (productos) => {
     actualizarInterfaz(productos);
   });
@@ -62,8 +68,21 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = document.createElement('div');
       card.classList.add('cards');
 
+      let imageTags = '';
+
+      if (Array.isArray(product.thumbnails)) {
+        product.thumbnails.forEach((thumbnail) => {
+          if (thumbnail.filename) {
+            const localImageUrl = `/docs/products/${thumbnail.filename}`;
+            imageTags += `<img src="${localImageUrl}" alt="Imagen del producto" class="productImage">`;
+          } else {
+            imageTags += `<img src="${product.thumbnails}" alt="Imagen del producto" class="productImage">`;
+          }
+        });
+      }
+
       card.innerHTML = `
-        <img src="${product.thumbnails}" alt="Imagen del producto" class="productImage">
+      ${imageTags}
         <h3 class="cardTitle">${product.title}</h3>
         <h4 class="cardPrice">$${product.price}</h4>
         <h4 class="cardStock">Stock: ${product.stock}</h4>

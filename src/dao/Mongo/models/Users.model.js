@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
 const UserSchema = new Schema({
-    name:{
+    name: {
         type: String
     },
     email: {
@@ -23,7 +23,7 @@ const UserSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ['Admin', 'User','Premium'],
+        enum: ['Admin', 'User', 'Premium'],
         default: 'User'
     },
     age: {
@@ -33,44 +33,34 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Carts'
     },
-    orders:{
-        type:[{
+    orders: {
+        type: [{
             type: Schema.Types.ObjectId,
             ref: 'Orders'
         }],
-        default:[]
+        default: []
     },
     resetToken: {
-            token: String,
-            expiration: Date,
-        },
+        token: String,
+        expiration: Date,
+    },
     documents: {
-        type:[{
+        type: [{
             name: String,
             reference: String,
         }],
-        default:[],
+        default: [],
     },
 
     last_connection: {
         type: Date,
-        default: null 
-        },
+        default: null
+    },
 
     avatar: {
         type: String,
         //default: faker.image.avatar(),
     },
-    /* ??? avatar: {
-        type: {
-            path: String, // Ruta o nombre del archivo
-            originalName: String, // Nombre original del archivo
-        },
-        default: {
-            path: faker.image.avatar(),
-            originalName: "default-avatar.png",
-        },
-    }, */
 });
 
 export const UserModel = model('Users', UserSchema);

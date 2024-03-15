@@ -25,18 +25,20 @@ export const errorName = {
   CREATE_PRODUCT_ERROR: 'Create Product Error',
   UPDATE_PRODUCT_ERROR: 'Update Product Error',
   DELETE_PRODUCT_ERROR: 'Delete Product Error',
-  SIGNUP_ERROR: 'Signup Error',
+  SIGNUP_ERROR: 'Signup Error , Email Already registered',
   LOGIN_ERROR: 'Login Error',
   SIGNOUT_ERROR: 'Signout Error',
   RESTORE_PASSWORD_ERROR: 'Restore Password Error',
   GITHUB_CALLBACK_ERROR: 'GitHub Callback Error',
   GITHUB_AUTH_ERROR: 'GitHub Auth Error',
   GET_CURRENT_USER_ERROR: 'Get Current User Error',
-  RESET_TOKEN_NOT_FOUND:'Reset token not found',
-  UPDATE_PREMIUM_USER_ERROR:'User not updated',
-  UPDATE_USER_ERROR:'Documents not updated',
-
+  RESET_TOKEN_NOT_FOUND: 'Reset token not found',
+  UPDATE_PREMIUM_USER_ERROR: 'User not updated',
+  UPDATE_USER_ERROR: 'Documents not updated',
+  USERS_NOT_FOUND: 'Users not found',
+  DELETE_INACTIVE_USERS_ERROR: 'Inactive users not deleted'
 };
+
 export const errorMessage = {
   ADD_TO_CART: 'Error adding product to cart',
   AUTHORIZATION_ERROR: 'You do not have the necessary permissions to access this page',
@@ -73,6 +75,8 @@ export const errorMessage = {
   GET_CURRENT_USER_ERROR: 'Error fetching the current user',
   RESET_TOKEN_NOT_FOUND: 'Reset token not found for password restoration',
   UPDATE_PREMIUM_USER_ERROR: 'Could not update user role',
-  UPDATE_USER_ERROR:'Could not update user data',
-  DOCUMENTS_NOT_UPDATED:'Missing documents'
+  UPDATE_USER_ERROR: 'Could not update user data',
+  DOCUMENTS_NOT_UPDATED: 'Missing documents',
+  USERS_NOT_FOUND: 'No users found',
+  DELETE_INACTIVE_USERS_ERROR: 'Usuarios inactivos no eliminados'
 };

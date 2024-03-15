@@ -1,4 +1,3 @@
-
 function showAlert(message, className) {
     const alertDiv = document.createElement('div');
     alertDiv.className = `alert ${className} mt-3`;
@@ -15,7 +14,6 @@ function showAlert(message, className) {
 
 document.getElementById('restorePasswordForm').addEventListener('submit', async function (event) {
     event.preventDefault();
-
     const newPassword = document.getElementById('newPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const token = window.location.pathname.split('/').pop();
@@ -26,7 +24,7 @@ document.getElementById('restorePasswordForm').addEventListener('submit', async 
     }
 
     try {
-        const response = await fetch(`http://localhost:8080/api/sessions/restorePassword/${token}`, {
+        const response = await fetch(`/api/sessions/restorePassword/${token}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +33,6 @@ document.getElementById('restorePasswordForm').addEventListener('submit', async 
                 newPassword,
             }),
         });
-
         const data = await response.json();
 
         if (response.status === 400) {

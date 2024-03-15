@@ -2,7 +2,6 @@ import {messageRepository} from "../repositories/message.repository.js";
 import { errorMessage , errorName } from "../errors/errors.enum.js";
 import customError from '../errors/errors.generator.js';
 
-
 class MessageService {
   async getAllMessages() {
     try {

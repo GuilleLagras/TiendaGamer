@@ -25,12 +25,12 @@ paths:
         examples:
           example-1:
             value:
-              title: "Product example"
-              description: "Description of the product"
-              price: 50000
-              category: "ps4"
-              code: "tlou"
-              stock: 10
+              title: "Need for speed"
+              description: "Underground"
+              price: 21000
+              category: "PS4"
+              code: "NFS"
+              stock: 8
               status: true
               thumbnails:
                 - "https://imagen.com/imagen.jpg"
@@ -64,12 +64,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/Product"
               example:
-                title: "Product example"
-                description: "Description of the product"
-                price: 89000
-                category: "ps4"
-                code: "nfs"
-                stock: 6
+                title: "Mortal Kombat 1"
+                description: "1"
+                price: 110000
+                category: "Pelea"
+                code: "MK1"
+                stock: 15
                 status: true
                 thumbnails:
                   - "https://imagen.com/imagen.jpg"
@@ -181,12 +181,12 @@ components:
         - ownerEmail
       example:
 
-        title: "Product example"
-        description: "Description of the product"
-        price: 45000
-        category: "ps4"
-        code: "gow"
-        stock: 8
+        title: "Mortal Kombat 11"
+        description: "11"
+        price: 32000
+        category: "PS4"
+        code: "MK11"
+        stock: 20
         status: true
         thumbnails:
           - "https://imagen.com/imagen.jpg"

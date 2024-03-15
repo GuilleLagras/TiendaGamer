@@ -1,4 +1,3 @@
-
 import BasicManager from "./basic.dao.js";
 import { productsModel } from "../models/Product.model.js";
 
@@ -9,8 +8,10 @@ export default class ProductManager extends BasicManager {
 
   async findAllCustom(obj) {
     try {
+
       const { limit = 10, page = 1, sort = '', query = '', availability = '' } = obj;
       const filter = {};
+
       if (query) {
         filter.category = query;
       }

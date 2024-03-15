@@ -7,15 +7,26 @@ import { errorMessage, errorName } from '../errors/errors.enum.js';
 import { handleErrors } from '../errors/handle.Errors.js';
 import { sendPasswordResetEmail } from '../config/restorePass.js';
 import upload from '../middlewares/multer.middleware.js';
+import UserMinimalDTO from '../DTOs/usersMinimal.dto.js';
 
 class UsersController {
+  async getUsers(req, res) {
+    try {
+      const usersFound = await usersService.getUsers();
+      const users = usersFound.map(user => new UserMinimalDTO(user));
+      res.status(200).json({ users });
+    } catch (error) {
+      handleErrors(res, customError.generateError(errorMessage.USERS_NOT_FOUND, 500, errorName.USERS_NOT_FOUND));
+    }
+  }
+
   async signup(req, res, next) {
     passport.authenticate('signup', (err, user, info) => {
       if (err) {
-        handleErrors(res, customError.generateError(errorMessage.SIGNUP_ERROR, 500, errorName.SIGNUP_ERROR));
+        return handleErrors(res, customError.generateError(errorMessage.SIGNUP_ERROR, 500, errorName.SIGNUP_ERROR));
       }
       if (!user) {
-        handleErrors(res, customError.generateError(errorMessage.SIGNUP_ERROR, 500, errorName.SIGNUP_ERROR));
+        return handleErrors(res, customError.generateError(errorMessage.SIGNUP_ERROR, 500, errorName.SIGNUP_ERROR));
       }
       res.redirect('/login');
     })(req, res, next);
@@ -37,8 +48,11 @@ class UsersController {
 
           user.last_connection = new Date();
           await user.save();
+
           const userResDTO = new UserResDTO(user);
+
           const token = generateToken({ Usuario, email, role, cartId, _id, last_connection, avatar });
+
           res.cookie('token', token, { maxAge: 120000, httpOnly: true });
           res.redirect('/api/products');
         });
@@ -47,11 +61,13 @@ class UsersController {
       }
     })(req, res, next);
   }
-
+  //signout 
   async signout(req, res) {
     try {
       res.clearCookie('token');
+
       const userId = req.user._id;
+
       if (userId) {
         const user = await usersService.findById(userId)
         if (user) {
@@ -66,6 +82,7 @@ class UsersController {
       res.status(500).send('Error al cerrar sesión');
     }
   }
+
   async restore(req, res) {
     const { email } = req.body;
     try {
@@ -74,6 +91,7 @@ class UsersController {
       if (!user) {
         return res.status(404).json({ message: 'Correo electrónico no encontrado en la base de datos' });
       }
+
       const resetToken = generateResetToken(email);
       user.resetToken = {
         token: resetToken,
@@ -81,6 +99,7 @@ class UsersController {
       };
       await user.save();
       sendPasswordResetEmail(email, resetToken);
+
       res.status(200).json({ message: 'Correo electrónico enviado para restablecer la contraseña' });
     } catch (error) {
       handleErrors(res, customError.generateError(errorMessage.RESTORE_ERROR, 500, errorName.RESTORE_ERROR));
@@ -89,11 +108,14 @@ class UsersController {
   async restorePassword(req, res) {
     const { newPassword } = req.body;
     const token = req.params.token;
+
     try {
       const user = await usersService.findByResetToken(token.toString());
+
       if (!user || !user.resetToken || user.resetToken.expiration < new Date()) {
         return res.redirect('/restore');
       }
+
       const isSamePassword = await compareData(newPassword, user.password);
       if (isSamePassword) {
         return res.status(400).json({ message: 'No puedes restablecer la nueva contraseña con tu contraseña actual.' });
@@ -102,6 +124,7 @@ class UsersController {
       user.password = hashedPassword;
       user.resetToken = null;
       await user.save();
+
       return res.status(200).json({ success: 'Contraseña restablecida con éxito.' });
     } catch (error) {
       return res.status(500).json({ error: 'Error durante el restablecimiento de la contraseña.' });
@@ -115,6 +138,7 @@ class UsersController {
 
       req.user.last_connection = new Date();
       await req.user.save();
+
       res.cookie('token', token, { maxAge: 120000, httpOnly: true });
       res.redirect('/api/products');
     } catch (error) {
@@ -143,23 +167,37 @@ class UsersController {
     try {
       const { uid } = req.params;
       const { newRole } = req.body;
+
+      const reqUserRole = req.user;
       const user = await usersService.findById(uid);
+
       if (!user) {
         return handleErrors(res, customError.generateError(errorMessage.USER_NOT_FOUND, 404, errorName.USER_NOT_FOUND));
       }
+
+      if (reqUserRole.role === 'Admin') {
+        user.role = newRole;
+        await user.save();
+        return res.redirect('/adminPanel')
+      }
+
       const docs = user.documents;
       const dni = docs.find((d) => d.name === "dni");
       const bank = docs.find((d) => d.name === "bank");
       const address = docs.find((d) => d.name === "address");
+
       if (!dni) {
         return res.status(400).json({ error: 'Falta el documento "dni".' });
       }
+
       if (!bank) {
         return res.status(400).json({ error: 'Falta el documento "bank".' });
       }
+
       if (!address) {
         return res.status(400).json({ error: 'Falta el documento "address".' });
       }
+
 
       user.role = newRole;
       await user.save();
@@ -180,17 +218,17 @@ class UsersController {
       if (err) {
         return res.status(500).json({ error: err.message });
       }
+
       try {
         const { dni, address, bank } = req.files;
-
         const response = await usersService.saveUserDocs(id, { dni, address, bank });
 
-        res.status(200).json({ message: 'Documentos actualizados con éxito', response });
+        res.status(200).json({ success: true, message: 'Documentos actualizados con éxito', response });
       } catch (error) {
         if (!(error.code === 400 && error.message.includes('Missing documents'))) {
-          res.status(error.code || 500).json({ error: error.message });
+          res.status(error.code || 500).json({ success: false, error: error.message });
         } else {
-          res.status(400).json({ error: error.message });
+          res.status(400).json({ success: false, error: error.message });
         }
       }
     });
@@ -210,7 +248,8 @@ class UsersController {
         };
         const updatedUser = await usersService.updateUserAvatar(uid, updatedUserData);
         console.log(updatedUser);
-        res.status(200).json({ message: 'Avatar actualizado con éxito', user: updatedUser });
+
+        res.status(200).json({ success: true, message: 'Avatar actualizado con éxito', updatedUser });
 
       } catch (error) {
         console.error('error' + error);
@@ -218,6 +257,16 @@ class UsersController {
       }
     })
   };
+
+  async deleteUserById(req, res) {
+    try {
+      const id = req.params.id
+      await usersService.deleteUserById(id);
+      res.redirect('/adminPanel');
+    } catch (error) {
+      res.status(error.code || 500).json({ error: error.message });
+    }
+  }
 }
 
 export const usersController = new UsersController();

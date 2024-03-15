@@ -48,16 +48,16 @@ paths:
                   products:
                     - product:
                         _id: "65b19ebc3250bf4167b53ab2"
-                        title: "Resident Evil 4"
+                        title: "Resident Evil 8"
                         description: "ps5"
-                        price: 54000
-                        category: "Videojuegos"
-                        code: "57575"
-                        stock: 88
+                        price: 73000
+                        category: "Terror"
+                        code: "re8"
+                        stock: 5
                         status: true
                         thumbnails: ["http:imagen.com/image.jpg"]
                         owner: "Premium"
-                        ownerEmail: "guille_iban92@hotmail.com"
+                        ownerEmail: "guille_ivan92@hotmail.com"
                         __v: 0
                       quantity: 1
                   total: 54000
@@ -291,12 +291,12 @@ components:
                           type: integer
                       example:
                         _id: "65b1a0c13250bf4167b53ae4"
-                        title: "SpiderMan"
+                        title: "spiderman"
                         description: "Marvel"
-                        price: 25000
+                        price: 52000
                         category: "PS5"
-                        code: "spd"
-                        stock: 10
+                        code: "SP2"
+                        stock: 4
                         status: true
                         thumbnails:
                           - "data:image/jpeg;base64,/9jf//Z"

@@ -422,3 +422,113 @@
   level: 'error',
   timestamp: '2024-02-25T00:10:14.327Z'
 }
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-14T14:51:02.210Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-14T23:25:35.771Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-14T23:25:51.007Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-14T23:25:52.639Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-14T23:30:27.555Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-14T23:35:26.985Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-14T23:36:04.335Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-14T23:36:07.172Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-14T23:36:09.095Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-14T23:36:11.797Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-14T23:36:15.667Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-14T23:36:20.396Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-14T23:58:24.806Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-14T23:58:29.315Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-15T00:01:13.732Z'
+}
+{
+  message: 'Error al crear user: MongoServerError: E11000 duplicate key error collection: Ecommerce.users index: email_1 dup key: { email: "adminCoder@coder.com" }',
+  level: 'error',
+  timestamp: '2024-03-15T00:01:50.459Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-15T00:07:33.265Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-15T00:07:53.728Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-15T00:08:08.833Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-15T00:08:23.464Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-15T00:10:55.973Z'
+}
+{
+  message: 'Autenticación fallida, redirigiendo',
+  level: 'error',
+  timestamp: '2024-03-15T00:13:38.759Z'
+}

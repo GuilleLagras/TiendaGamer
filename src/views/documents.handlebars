@@ -6,18 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 
-<body>
+<body class="documentsContainer">
 
     <div class="container profile-container">
         <div class="profile-image-container">
-            {{#if message}}
-            <div class="alert alert-{{type}} alert-dismissible fade show" role="alert">
-                {{message}}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {{/if}}
             <div class="profile-image">
                 {{#if isUrl}}
                 <img src="{{user.avatar}}" alt="Avatar" id="profileImage" />
@@ -33,8 +28,8 @@
             <h1>{{user.Usuario}}</h1>
             <h6>{{user.email}}</h6>
             <p>({{user.role}})</p>
-
         </div>
+        <div id="alertNewAvatar"></div>
         <div class="user-docsDto">
             {{#if userInfoDTO.dni}}
             <p>DNI: {{userInfoDTO.dni.reference}}</p>
@@ -46,8 +41,11 @@
             <p>Bank Reference: {{userInfoDTO.bank.reference}}</p>
             {{/if}}
         </div>
+
+        <div class="documentsAlertContainer "></div>
+
         <form action="/api/users/{{user._id}}/documents" method="post" enctype="multipart/form-data"
-            class="document-form">
+            class="document-form" id="uploadForm">
             <div class="form-group">
                 <label for="dni">Documento DNI:</label>
                 <input type="file" name="dni" id="dni" class="form-control">
@@ -74,7 +72,9 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="/api/users/{{user._id}}/updateAvatar" method="post" enctype="multipart/form-data">
+                        <div class="avatarAlertContainer"></div>
+                        <form action="/api/users/{{user._id}}/updateAvatar" method="post" enctype="multipart/form-data"
+                            id="uploadAvatarForm">
                             <label for="avatar">Choose Avatar:</label>
                             <input type="file" name="profile" id="avatar" accept="image/*"
                                 onchange="previewImage(this)">
@@ -90,6 +90,7 @@
                 <a href="/api/users/premium/{{user._id }}" class="signout">Upgrade rol<a>
             </button>
         </div>
+
         <script>
             function previewImage(input) {
                 const preview = document.getElementById('profileImage');
@@ -104,8 +105,11 @@
                 }
             }
         </script>
+
+        <script src="/js/documents.js"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

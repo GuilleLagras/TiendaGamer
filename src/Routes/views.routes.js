@@ -12,7 +12,7 @@ import { generateProduct } from "../faker.js";
 import { usersRepository } from "../repositories/users.repository.js";
 import { usersService } from "../services/users.service.js";
 import { DocumentInfo, UserInfoDTO } from "../DTOs/userInfo.dto.js";
-import EmailProductDTO from "../DTOs/emailPurchase.dto.js";
+import EmailProductDTO from "../DTOs/emaiilPurchase.dto.js";
 import UserMinimalDTO from "../DTOs/usersMinimal.dto.js";
 import UserInfoForAdminDTO from "../DTOs/usersForAdmin.dto.js";
 
